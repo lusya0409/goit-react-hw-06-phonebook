@@ -7,6 +7,8 @@ import {
   ButtonAdd,
 } from './ContactForm.styled';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
 
 const FormShema = Yup.object().shape({
   name: Yup.string()
@@ -25,7 +27,9 @@ const FormShema = Yup.object().shape({
     .max(13, 'At most 13 maxes!')
     .required('Required'),
 });
-export const ContactForm = ({ onAdd }) => {
+export const ContactForm = () => {
+  const dispatch = useDispatch();
+
   return (
     <Formik
       initialValues={{
@@ -34,7 +38,7 @@ export const ContactForm = ({ onAdd }) => {
       }}
       validationSchema={FormShema}
       onSubmit={(values, actions) => {
-        onAdd(values);
+        dispatch(addContact(values));
         actions.resetForm();
       }}
     >

@@ -1,4 +1,12 @@
-export const Filter = ({ filter, onChangeFilter }) => {
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setFilter } from 'redux/filterSlice';
+import { getFilter } from 'redux/selectors';
+
+export const Filter = () => {
+  const dispatch = useDispatch();
+  const filter = useSelector(getFilter);
+
   return (
     <div>
       <p>Find contacts by name</p>
@@ -7,7 +15,7 @@ export const Filter = ({ filter, onChangeFilter }) => {
         placeholder="Start to type"
         value={filter}
         onChange={evt => {
-          onChangeFilter(evt.target.value);
+          dispatch(setFilter(evt.target.value));
         }}
       />
     </div>
